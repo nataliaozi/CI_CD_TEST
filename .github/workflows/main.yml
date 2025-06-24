@@ -1,17 +1,30 @@
-name: Cypress tests
+name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
-      - name: Install Dependencies
+          node-version: 16
+
+      - name: Install dependencies
         run: npm ci
+
       - name: Run Cypress tests
         uses: cypress-io/github-action@v3
+        with:
+          spec: "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}"
