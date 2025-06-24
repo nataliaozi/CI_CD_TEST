@@ -15,5 +15,3 @@ jobs:
         run: npm ci
       - name: Run Cypress tests
         uses: cypress-io/github-action@v3
-        with:
-          spec: "cypress/e2e/**/*.spec.{js,jsx,ts,tsx}"
